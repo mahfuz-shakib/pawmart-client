@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 import { motion, easeInOut, easeOut } from "framer-motion";
 import { AuthContext } from "../auth/AuthContext";
-import Container from "../container/Container"
+import Container from "../container/Container";
+import useAxios from "../hooks/useAxios";
 
 const Login = () => {
-  const {signInWithGoogle,signInUser}=use(AuthContext);
+  const { signInWithGoogle, signInUser } = use(AuthContext);
+  const axiosInstance = useAxios();
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
@@ -32,12 +34,10 @@ const Login = () => {
       .catch((err) => {
         if (err.code.slice(5) == "invalid-credential") {
           setError("Invalid email or password");
-        toast.error("Invalid email or password");
-
+          toast.error("Invalid email or password");
         } else {
           setError(err.code.slice(5));
-        toast.error(err.code.slice(5));
-
+          toast.error(err.code.slice(5));
         }
       });
   };
@@ -48,6 +48,14 @@ const Login = () => {
     signInWithGoogle()
       .then((res) => {
         console.log(res.user);
+        axiosInstance
+          .post("/users", { name: res.user.displayName, email: res.user.email, photoURL: res.user.photoURL })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         toast.success("Login Successfully");
         navigate(location.state ? location.state : "/");
       })
@@ -94,12 +102,7 @@ const Login = () => {
                 <form onSubmit={handleSignIn}>
                   <fieldset className="fieldset">
                     <label className="label">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      className="input-field"
-                      placeholder="Enter your email"
-                    />
+                    <input type="email" name="email" className="input-field" placeholder="Enter your email" />
                     <label className="label">Enter your password</label>
                     <div className="relative">
                       <input
@@ -117,7 +120,7 @@ const Login = () => {
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                       </button>
                     </div>
-                    <Link to='/forgotPassword' className="link link-hover mt-2">
+                    <Link to="/forgotPassword" className="link link-hover mt-2">
                       Forgot password?
                     </Link>
                     <button className="btn bg-lime-800 text-white mt-4 hover:bg-teal-800">Sign in</button>

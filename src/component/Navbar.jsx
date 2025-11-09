@@ -8,6 +8,7 @@ import Container from "../container/Container";
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const { user, loading, logOut } = use(AuthContext);
+  console.log(user);
   const navigate = useNavigate();
   const links = (
     <>
