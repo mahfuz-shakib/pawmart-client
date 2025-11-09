@@ -60,7 +60,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-green-900 text-white text-base rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-indigo-900 text-white text-base rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {links}
               {!user && (
@@ -71,7 +71,7 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/register" className="btn bg-teal-800 mt-2 text-white">
+                    <Link to="/register" className="btn bg-indigo-800 mt-2 text-white">
                       Register
                     </Link>
                   </li>
@@ -81,7 +81,7 @@ const Navbar = () => {
           </div>
           <button className="w-32 sm:w-full -ml-2 flex items-center gap-1 hover:scale-102 ">
             {/* <img src={logo} alt="greenNest-logo" className="size-8 md:size-10 hidden sm:block" /> */}
-            <Link to="/" className=" text-[22px] md:text-[26px] font-semibold text-green-700">
+            <Link to="/" className=" text-[22px] md:text-[26px] font-semibold text-purple-700">
               PawMart
             </Link>
           </button>
@@ -100,12 +100,12 @@ const Navbar = () => {
                   src={user.photoURL}
                   onClick={() => setOpenDropdown(!openDropdown)}
                   alt=""
-                  className="size-10 rounded-full border-2 border-green-300 hover:cursor-pointer hover:scale-102 "
+                  className="size-10 rounded-full border-2 border-indigo-300 hover:cursor-pointer hover:scale-102 "
                 />
               ) : (
                 <FaUser
                   onClick={() => setOpenDropdown(!openDropdown)}
-                  className="size-10 rounded-full border-2 border-green-300 hover:cursor-pointer hover:scale-102 "
+                  className="size-10 rounded-full border-2 border-indigo-300 hover:cursor-pointer hover:scale-102 "
                 />
               )}
             </>
@@ -114,17 +114,17 @@ const Navbar = () => {
               <Link to="/login" className="btn btn-outline  ">
                 Login
               </Link>
-              <Link to="/register" className="btn hidden md:flex bg-teal-800 text-white">
+              <Link to="/register" className="btn hidden md:flex bg-indigo-800 text-white">
                 Register
               </Link>
             </>
           )}
           {openDropdown && (
-            <div className="absolute w-48 right-0 bg-green-100 flex flex-col text-center p-3 space-y-2 rounded mt-36 z-50">
-              <Link to="/myprofile" onClick={() => setOpenDropdown(false)} className="hover:bg-green-200 rounded py-1">
+            <div className="absolute w-48 right-0 bg-indigo-100 flex flex-col text-center p-3 space-y-2 rounded mt-36 z-50">
+              <Link to="/myprofile" onClick={() => setOpenDropdown(false)} className="hover:bg-indigo-200 rounded py-1">
                 {user.displayName}
               </Link>
-              <button onClick={handdleLogOut} className="hover:bg-green-200 rounded py-1">
+              <button onClick={handdleLogOut} className="hover:bg-indigo-200 rounded py-1">
                 Log Out
               </button>
             </div>
