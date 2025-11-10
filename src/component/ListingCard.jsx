@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 
 const ListingCard = ({ product }) => {
-  const { name, image, category, location, price } = product;
+  const {_id, name, image, category, location, price } = product;
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
@@ -13,7 +13,7 @@ const ListingCard = ({ product }) => {
         <p className="text-sm">{category}</p>
         <p className="">{location}</p>
         <p className="">{price}</p>
-        <Link className="btn btn-outline">See Details</Link>
+        <Link to={`/product/${_id}`} className="btn btn-outline">See Details</Link>
       </div>
     </div>
   );

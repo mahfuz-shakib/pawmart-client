@@ -8,13 +8,15 @@ import PageBanner from "../component/PageBanner";
 const AddListing = () => {
   const { user } = useAuth();
   const axiosInstance = useAxios();
-  const [category, setCategory] = useState("Pet");
+  const [category, setCategory] = useState("Pets");
   const handleSubmit = (e) => {
     e.preventDefault();
+    let price = parseInt(e.target.price.value);
+    if (category === "Pets") price = 0;
     const newListing = {
       name: e.target.name.value,
       category: category,
-      price: parseInt(e.target.price.value),
+      price: price,
       location: e.target.location.value,
       description: e.target.description.value,
       image: e.target.photo.value,
@@ -88,7 +90,7 @@ const AddListing = () => {
                       name="price"
                       id="price"
                       className="input-field"
-                      placeholder="e.g. 1000"
+                      placeholder="0 if category is pets"
                       required
                     />
                   </div>

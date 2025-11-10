@@ -1,30 +1,114 @@
-import React, { useEffect, useState } from 'react';
-import useAxios from '../hooks/useAxios';
-import useAuth from '../hooks/useAuth';
-import PageBanner from '../component/PageBanner';
+import React, { useEffect, useRef, useState } from "react";
+import useAxios from "../hooks/useAxios";
+import useAuth from "../hooks/useAuth";
+import PageBanner from "../component/PageBanner";
+import Container from "../container/Container";
+import { easeInOut, easeOut, motion } from "framer-motion";
+import UpdateListing from "../component/UpdateListing";
 
 const MyListings = () => {
-    const [myListings, setMyListings]=useState([]);
-    const {user} = useAuth();
-    const axiosInstance = useAxios();
-    useEffect(()=>{
-        axiosInstance.get(`/products/?email=${user.email}`)
-        .then(data=>setMyListings[data.data])
-        .catch(err=>console.log(err))
-    },[user,axiosInstance]);
-    console.log(myListings);
-    const bannerInfo = {
-        title: "Pets & Supplies",
-        description:
-          "Browse through all available pets for adoption and pet care products. Find your perfect companion or everything your pet needs.",
-        icon: "🐾",
-      };
-      return (
-        <div className="min-h-screen">
-          <PageBanner bannerInfo={bannerInfo}></PageBanner>
-            
+  const [myListings, setMyListings] = useState([]);
+  const [updateItem, setUpdateItem] = useState({});
+  const modalRef = useRef();
+  const { user } = useAuth();
+  const axiosInstance = useAxios();
+  useEffect(() => {
+    axiosInstance
+      .get(`/products/?email=${user.email}`)
+      .then((data) => setMyListings(data.data))
+      .catch((err) => console.log(err));
+  }, [user, axiosInstance]);
+  // console.log(myListings);
+  const bannerInfo = {
+    title: "Pets & Supplies",
+    description:
+      "Browse through all available pets for adoption and pet care products. Find your perfect companion or everything your pet needs.",
+    icon: "🐾",
+  };
+
+  const handleUpdate = (item) => {
+    setUpdateItem(item);
+    modalRef.current.showModal();
+  };
+  return (
+    <div className="min-h-screen">
+      <PageBanner bannerInfo={bannerInfo}></PageBanner>
+      <Container>
+        <div className="overflow-x-auto py-16">
+          {myListings.length === 0 ? (
+            ""
+          ) : (
+            <motion.table
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="table"
+            >
+              {/* head */}
+              <thead>
+                <tr className="bg-green-50">
+                  <th>SL. No. </th>
+                  <th>Product Name</th>
+                  <th>Price (tk)</th>
+                  <th>Created At</th>
+                  <th>Created By</th>
+                  <th>Action</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {myListings?.map((list, index) => (
+                  <tr key={list._id} className={`${index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle h-12 w-12">
+                            <img src={list.image} alt={list.name} />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">{list.name}</div>
+                          <div className="text-sm opacity-50">({list.category})</div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>{list.price}</td>
+                    <td>{list.date}</td>
+                    <td className="opacity-75">{user.email}</td>
+                    <td>
+                      <button
+                        onClick={() => handleUpdate(list)}
+                        className="btn badge badge-primary btn-xs hover:scale-101"
+                      >
+                        Update
+                      </button>
+                    </td>
+                    <td>
+                      <button className="btn badge badge-secondary btn-xs hover:scale-101">Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </motion.table>
+          )}
         </div>
-    );
+        <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+          <div className="bg-white p-2 md:p-4 rounded ">
+            <h1 className="text-center font-bold mb-3">Update Information</h1>
+            <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setMyListings}/>
+            <div className="">
+              <form method="dialog">
+                <button className="btn">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      </Container>
+    </div>
+  );
 };
 
 export default MyListings;
