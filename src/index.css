@@ -7,14 +7,16 @@
     font-family: "Inter", sans-serif;
 }
 a.active{
-    color:coral;
+    color:purple;
     text-decoration: underline;
 }
 
 .input-field{
-    @apply input w-full placeholder-gray-500 hover:border-green-300 focus:border-green-300 outline-none
+    @apply input w-full placeholder-gray-500 hover:border-indigo-400 focus:border-indigo-400 outline-none
 }
-
+select,textarea{
+    @apply placeholder-gray-500 hover:border-indigo-400 focus:border-indigo-400 outline-none
+}
 .footer-ul
 {
   @apply text-gray-300  flex justify-center text-sm sm:text-base sm:justify-start flex-wrap items-center gap-2 divide-x divide-gray-600 sm:block sm:space-y-2 sm:divide-x-0

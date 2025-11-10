@@ -9,10 +9,10 @@ import useAxios from "../hooks/useAxios";
 import { useEffect } from "react";
 
 const PetsAndSupplies = () => {
-  const allProducts = useLoaderData();
-  const [products, setProducts] = useState(allProducts);
+  // const allProducts = useLoaderData();
+  const [products, setProducts] = useState([]);
   const [selectedCategory, setSeletedCategory] = useState("All Categories");
-  const [selectedSort, setSeletedSort] = useState("All");
+  // const [selectedSort, setSeletedSort] = useState("All");
   const axiosInstance = useAxios();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const PetsAndSupplies = () => {
             </svg>
             <input onChange={handleSearch} type="search" required placeholder="Search by name" />
           </label>
-          <select defaultValue="Sort by Date" className="w-64 select select-bordered bg-indigo-50">
+          {/* <select defaultValue="Sort by Date" className="w-64 select select-bordered bg-indigo-50">
             <option className="text-gray-500">Sort by Date</option>
             <option>
               New <FaArrowRight /> Old
@@ -67,7 +67,7 @@ const PetsAndSupplies = () => {
             <option>
               Old <FaArrowRight /> New{" "}
             </option>
-          </select>
+          </select> */}
         </div>
         <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products?.map((product) => (
