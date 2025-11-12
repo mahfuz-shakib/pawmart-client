@@ -8,6 +8,7 @@ import CategoyrFiltered from "../pages/CategoyrFiltered";
 import AddListing from "../pages/AddListing";
 import MyListings from "../pages/MyListings";
 import MyOrders from "../pages/MyOrders";
+import ListingDetails from "../pages/ListingDetails";
 // , loader: () => fetch("http://localhost:3000/products")
 // , loader: () => fetch("http://localhost:3000/recentProducts") 
 export const router = createBrowserRouter([
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home},
       { path: "/allListings", Component: PetsAndSupplies},
+      { path: "/allListings/:id", Component: ListingDetails},
       { path: "/category-filtered-product/:categoryName", Component: CategoyrFiltered },
       { path: "/addListing", Component: AddListing },
       { path: "/myListings", Component: MyListings },

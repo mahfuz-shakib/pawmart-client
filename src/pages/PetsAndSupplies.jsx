@@ -1,5 +1,4 @@
 import React from "react";
-import { useLoaderData } from "react-router";
 import Container from "../container/Container";
 import ListingCard from "../component/ListingCard";
 import PageBanner from "../component/PageBanner";
@@ -9,7 +8,6 @@ import useAxios from "../hooks/useAxios";
 import { useEffect } from "react";
 
 const PetsAndSupplies = () => {
-  // const allProducts = useLoaderData();
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSeletedCategory] = useState("All Categories");
   // const [selectedSort, setSeletedSort] = useState("All");

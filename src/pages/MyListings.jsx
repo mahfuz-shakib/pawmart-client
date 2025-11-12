@@ -5,6 +5,7 @@ import PageBanner from "../component/PageBanner";
 import Container from "../container/Container";
 import { easeInOut, easeOut, motion } from "framer-motion";
 import UpdateListing from "../component/UpdateListing";
+import Swal from "sweetalert2";
 
 const MyListings = () => {
   const [myListings, setMyListings] = useState([]);
@@ -18,7 +19,7 @@ const MyListings = () => {
       .then((data) => setMyListings(data.data))
       .catch((err) => console.log(err));
   }, [user, axiosInstance]);
-  // console.log(myListings);
+
   const bannerInfo = {
     title: "Pets & Supplies",
     description:
@@ -29,6 +30,35 @@ const MyListings = () => {
   const handleUpdate = (item) => {
     setUpdateItem(item);
     modalRef.current.showModal();
+  };
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(item._id);
+        axiosInstance
+          .delete(`/products/${item._id}`)
+          .then(() => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your listing item has been deleted.",
+              icon: "success",
+            });
+            axiosInstance
+              .get(`/products/?email=${user.email}`)
+              .then((data) => setMyListings(data.data))
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
   return (
     <div className="min-h-screen">
@@ -87,7 +117,12 @@ const MyListings = () => {
                       </button>
                     </td>
                     <td>
-                      <button className="btn badge badge-secondary btn-xs hover:scale-101">Delete</button>
+                      <button
+                        onClick={() => handleDelete(list)}
+                        className="btn badge badge-secondary btn-xs hover:scale-101"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -95,10 +130,11 @@ const MyListings = () => {
             </motion.table>
           )}
         </div>
+        {/* update modal form */}
         <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
           <div className="bg-white p-2 md:p-4 rounded ">
             <h1 className="text-center font-bold mb-3">Update Information</h1>
-            <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setMyListings}/>
+            <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setMyListings} />
             <div className="">
               <form method="dialog">
                 <button className="btn">Cancel</button>

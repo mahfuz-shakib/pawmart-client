@@ -13,7 +13,7 @@ const ListingCard = ({ product }) => {
         <p className="text-sm">{category}</p>
         <p className="">{location}</p>
         <p className="">{price}</p>
-        <Link to={`/product/${_id}`} className="btn btn-outline">See Details</Link>
+        <Link to={`/allListings/${_id}`} className="btn btn-outline">See Details</Link>
       </div>
     </div>
   );
