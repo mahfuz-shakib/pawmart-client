@@ -5,7 +5,7 @@ import { FaUser } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { AuthContext } from "../auth/AuthContext";
 import Container from "../container/Container";
-import logo from '../../public/assets/pm_logo2.png'
+import logo from '../../public/assets/paw_logo.png'
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
@@ -56,7 +56,8 @@ const Navbar = () => {
     toast("Log out successfully");
   };
   return (
-    <div className={`shadow-sm sticky top-0 z-1000`}>
+    <div className={`shadow-sm `}>
+      {/* sticky top-0 z-1000 */}
       <Container>
         <div className="navbar  flex justify-between items-center">
           <div className="md:navbar-start flex items-center">
@@ -94,9 +95,9 @@ const Navbar = () => {
                 )}
               </ul>
             </div>
-            <button className="w-32 sm:w-full -ml-2 flex items-center gap-1 hover:scale-102 ">
-              <img src={logo} alt="pawmart" className=" w-18 hidden sm:block" />
-              <Link to="/" className={` text-[22px] md:text-[26px] font-semibold bg-grad bg-clip-text text-transparent`}>
+            <button className="w-32 sm:w-full relative -ml-2 flex items-center gap-1 hover:scale-102 ">
+              <img src={logo} alt="pawmart" className="h-12 hidden sm:block" />
+              <Link to="/" className={` text-[22px] md:text-[26px] absolute ml-9 mt-5 font-semibold bg-grad bg-clip-text text-transparent`}>
                 PawMart
               </Link>
             </button>
