@@ -19,8 +19,8 @@ const CategoyrFiltered = () => {
     <Container>
       <title>{categoryName}</title>
       <div>
-        <h1 className="text-5xl font-bold text-center my-10">
-          Our Featured <span className="text-fuchsia-500">{categoryName}</span>
+        <h1 className="text-3xl md:text-4xl font-bold text-center my-12">
+          Our Featured <span className="text-yello-500 bg-grad bg-clip-text text-transparent">{categoryName}</span>
         </h1>
         <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {products?.map((product) => (

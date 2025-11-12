@@ -1,5 +1,8 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
@@ -7,7 +10,7 @@
     font-family: "Inter", sans-serif;
 }
 a.active{
-    color:purple;
+    color:goldenrod;
     text-decoration: underline;
 }
 
@@ -20,4 +23,7 @@ select,textarea{
 .footer-ul
 {
   @apply text-gray-300  flex justify-center text-sm sm:text-base sm:justify-start flex-wrap items-center gap-2 divide-x divide-gray-600 sm:block sm:space-y-2 sm:divide-x-0
+}
+ .bg-grad{
+  @apply bg-linear-to-r from-yellow-500 to-pink-400
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 const axiosInstance = axios.create({
-  baseURL: "https://pawmart-server301.vercel.app",
+  baseURL: "https://pawmart-server-api.vercel.app",
 });
 
 const useAxios = () => {
