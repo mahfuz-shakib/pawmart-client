@@ -4,10 +4,11 @@ import { Link } from "react-router";
 import useTheme from "../hooks/useTheme";
 
 const ListingCard = ({ product }) => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+    const {theme} = useTheme();
+
   const { _id, name, image, category, location, price } = product;
   return (
-    <div className={`card w-96 h-[484px] shadow-sm border border-gray-100`}>
+    <div className={`card w-96 h-[484px] shadow-sm ${theme==='dark'?"bg-gray-700":""}`}>
       <img src={image} alt={name} className="size-64 mx-auto h-[65%] w-full object-cover" />
       <div className="card-body flex flex-col justify-between">
         <div className="space-y-3">

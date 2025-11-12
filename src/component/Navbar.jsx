@@ -8,9 +8,9 @@ import Container from "../container/Container";
 import logo from '../../public/assets/paw_logo.png'
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
+  const [theme, set_Theme] = useState(localStorage.getItem('theme') || "light")
 
-  const { user, loading, logOut } = use(AuthContext);
+  const { user, loading, logOut,setTheme } = use(AuthContext);
   console.log(user);
   const navigate = useNavigate();
   const links = (
@@ -39,14 +39,15 @@ const Navbar = () => {
 
 
   useEffect(() => {
+    setTheme(theme);
     const html = document.querySelector('html')
      html.setAttribute("data-theme", theme)
      localStorage.setItem("theme", theme)
-  }, [theme])
+  }, [theme,setTheme])
 
 
   const handleTheme = (checked) => {
-    setTheme(checked ? "dark": "light")
+    set_Theme(checked ? "dark": "light")
   }
 
   const handdleLogOut = () => {
@@ -56,7 +57,7 @@ const Navbar = () => {
     toast("Log out successfully");
   };
   return (
-    <div className={`shadow-sm `}>
+    <div className={`shadow-sm sticky top-0 z-1000 ${theme==='dark'?"bg-gray-800":"bg-gray-100"}`}>
       {/* sticky top-0 z-1000 */}
       <Container>
         <div className="navbar  flex justify-between items-center">

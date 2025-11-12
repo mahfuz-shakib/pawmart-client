@@ -1,10 +1,7 @@
-import { useEffect } from "react";
+import { use } from "react";
+import {AuthContext} from "../auth/AuthContext"
 
-const useTheme = () => {
-  
-  useEffect(() => {
-    theme = localStorage.getItem("theme");
-  }, []);
-  return theme;
-};
+const useTheme = ()=>{
+    return use(AuthContext);
+}
 export default useTheme;

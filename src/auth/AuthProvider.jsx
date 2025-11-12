@@ -3,6 +3,8 @@ import {AuthContext} from "./AuthContext"
 import { createUserWithEmailAndPassword, deleteUser, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase/firebase.config';
 const AuthProvider = ({ children }) => {
+  const [theme,setTheme]=useState('');
+  console.log(theme);
   const [user, setUser] = useState({});
   const [userId,setUserId]=useState('');
   const [loading, setLoading] = useState(true);
@@ -48,6 +50,8 @@ const AuthProvider = ({ children }) => {
     logOut,
     deleteAccount,
     loading,
+    theme,
+    setTheme
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };

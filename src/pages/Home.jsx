@@ -20,10 +20,10 @@ const Home = () => {
   }, [axiosInstance]);
   // if(!recentProducts.length) return <p className="min-h-screen flex items-center justify-center">loading.....</p>
   return (
-    <div>
+    <div className="bg-gray-0">
       <HeroBanner />
       <Container>
-        <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 via-white to-secondary/10 relative overflow-hidden">
+        <section className="py-12 mt-24 md:py-16 bg-gradient-to-br from-yellow-100 via-white to-pink-300 relative rounded-xl overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
@@ -42,7 +42,7 @@ const Home = () => {
             <p className="text-gray-600 text-lg">Making a difference, one pet at a time</p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 px-2 relative z-10">
             {[
               { number: "10K+", label: "Happy Pets", icon: "🐾", color: "from-pink-500 to-rose-500" },
               { number: "5K+", label: "Adoptions", icon: "❤️", color: "from-red-500 to-pink-500" },

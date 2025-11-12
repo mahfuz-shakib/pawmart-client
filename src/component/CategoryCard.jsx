@@ -10,7 +10,7 @@ const CategoryCard = ({ category }) => {
         transition={{ duration: 0.2 }}
         className="card borde border-purple-500 bg-linear-to-br from-primary/10 to-secondary/10 hover:from-primary/20 hover:to-secondary/20 transition-all cursor-pointer rounded-xl"
       >
-        <div className=" card-body items-center text-center px-12 py-12">
+        <div className=" card-body items-center text-center md:p-12">
           <div className="text-5xl mb-4">{category.icon}</div>
           <h3 className="card-title text-xl">{category.name}</h3>
         </div>

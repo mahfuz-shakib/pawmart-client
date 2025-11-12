@@ -1,8 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Container from "../container/Container";
+import useTheme from "../hooks/useTheme";
 
 const PetHeros = () => {
+    const {theme} = useTheme();
+    console.log(theme);
   const petHeroes = [
      { 
       name: "Luna", 
@@ -86,11 +89,11 @@ const PetHeros = () => {
                       <div className="divider my-4"></div>
 
                       {/* Owner Info */}
-                      <div className="space-y-2 mb-4">
-                        <p className="text-gray-700">
+                      <div className={`space-y-2 mb-4  ${theme==='dark'?"text-gray-300":"text-gray-700"}`}>
+                        <p >
                           <span className="font-semibold">Owner:</span> {hero.owner}
                         </p>
-                        <p className="text-gray-700">
+                        <p >
                           <span className="font-semibold">Location:</span> {hero.location}
                         </p>
                       </div>
