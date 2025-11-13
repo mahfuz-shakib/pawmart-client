@@ -15,7 +15,7 @@ const ListingDetails = () => {
   const modalRef = useRef();
   const axiosInstance = useAxios();
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     axiosInstance
       .get(`/products/${id}`)
       .then((data) => {
@@ -36,11 +36,11 @@ const ListingDetails = () => {
       ) : (
         <Container>
           <div className="bg-primary/10 flex flex-col md:flex-row justify-center  gap-8 md:gap-32 my-12 py-16 rounded-lg">
-            <div className="space-y-8">
+            <div className="space-y-8 mx-auto">
               <img src={image} alt={name} className="h-64 md:h-96 bg-white rounded" />
-              <div className="p-3 w-96 bg-secondary/10 rounded">{description}</div>
+              <div className="p-3 md:w-96 bg-secondary/10 rounded">{description}</div>
             </div>
-            <div className="space-y-6 w-fit">
+            <div className="space-y-6 w-fit mx-auto">
               <div className="card  p-5 space-y-3 bg-secondary/10">
                 <h1 className="text-2xl md:text-3xl font-bold">{name}</h1>
                 <p className="text-yellow-500 badge bg-secondary/10">{category}</p>

@@ -43,8 +43,8 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
   return (
     <>
       <form onSubmit={handleUpdateInfo}>
-        <fieldset className="fieldset space-y-1">
-          <div className="flex flex-col md:flex-row justify-between gap-5">
+        <fieldset className="fieldset md:space-y-1">
+          <div className="flex flex-col md:flex-row justify-between gap-2">
             <div className="w-xs md:w-md">
               <label className="label">Product/Pet Name</label>
               <br />
@@ -66,7 +66,7 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
               </select>
             </div>
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
+          <div className="w-full flex flex-col md:flex-row gap-2 md:gap-10 justify-between">
             <div className="w-xs md:w-md">
               <label className="label">Location</label>
               <br />
@@ -82,7 +82,7 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
             <br />
             <textarea
               name="description"
-              className="textarea textarea-bordered h-24 md:h-4 w-xs md:w-full"
+              className="textarea textarea-bordered h-4 w-xs md:w-full"
               defaultValue={updateItem.description}
               required
             ></textarea>
@@ -91,7 +91,7 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
             <label className="label">Photo URL</label>
             <input type="text" name="photo" className="input-field" defaultValue={updateItem.image} required />
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
+          <div className="w-full flex flex-col md:flex-row gap-2 md:gap-10 justify-between">
             <div className="w-xs md:w-md">
               <label className="label">Email</label>
               <input type="email" name="email" className="input-field" defaultValue={user.email} readOnly />
@@ -101,7 +101,7 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
               <input type="date" name="date" className="input-field" defaultValue={updateItem.date} required />
             </div>
           </div>
-          <button className="btn mx-auto w-sm bg-purple-700 text-white mt-4 hover:bg-purple-800">Update</button>
+          <button className="btn mx-auto w-full md:w-sm bg-purple-700 text-white mt-1 md:mt-4 hover:bg-purple-800">Update</button>
         </fieldset>
       </form>
     </>

@@ -150,7 +150,7 @@ const MyListings = () => {
           {/* update modal form */}
           <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
             <div className={`p-2 md:p-4 rounded ${theme==='dark'?'bg-black border border-gray-500':'bg-white'}`}>
-              <h1 className="text-center font-bold mb-3">Update Information</h1>
+              <h1 className="text-center font-bold mb-2 md:mb-3">Update Information</h1>
               <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setMyListings} />
               <div className="w-fit mx-auto ">
                 <form method="dialog">

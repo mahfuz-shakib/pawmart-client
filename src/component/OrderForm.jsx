@@ -39,8 +39,8 @@ const OrderForm = ({ item, modalRef }) => {
   return (
     <>
       <form onSubmit={handleFormInfo}>
-        <fieldset className="fieldset space-y-1">
-          <div className="flex flex-col md:flex-row justify-between gap-5">
+        <fieldset className="fieldset ">
+          <div className="flex flex-col md:flex-row justify-between gap-2">
             <div className="w-xs md:w-sm">
               <label className="label">Buyer Name</label>
               <br />
@@ -51,7 +51,7 @@ const OrderForm = ({ item, modalRef }) => {
               <input type="email" name="email" className="input-field" defaultValue={user.email} readOnly />
             </div>
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
+          <div className="w-full flex flex-col md:flex-row gap-2 md:gap-10 justify-between">
             <div className="w-xs md:w-sm">
               <label className="label">Address</label>
               <br />
@@ -63,7 +63,7 @@ const OrderForm = ({ item, modalRef }) => {
               <input type="text" name="phone" className="input-field " placeholder="+880..." required />
             </div>
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
+          <div className="w-full flex flex-col md:flex-row gap-2 md:gap-10 justify-between">
             <div className="w-xs md:w-sm">
               <label className="label">Product/Listing ID</label>
               <input type="text" name="productId" className="input-field" defaultValue={item._id} readOnly />
@@ -73,7 +73,7 @@ const OrderForm = ({ item, modalRef }) => {
               <input type="text" name="productName" className="input-field" defaultValue={item.name} readOnly />
             </div>
           </div>
-          <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
+          <div className="w-full flex flex-col md:flex-row gap-2 md:gap-10 justify-between">
             <div className="">
               <label className="label">Price (tk)</label> <br />
               <input type="number" name="price" className="input-field" defaultValue={item.price} readOnly />
@@ -98,12 +98,12 @@ const OrderForm = ({ item, modalRef }) => {
             <br />
             <textarea
               name="notes"
-              className="textarea textarea-bordered h-24 md:h-4 w-xs md:w-full"
+              className="textarea textarea-bordered h-4 w-xs md:w-full"
               placeholder="Enter some extra notes"
               required
             ></textarea>
           </div>
-          <button className="btn mx-auto w-sm bg-grad text-white mt-4 hover:scale-102">Place Order</button>
+          <button className="btn mx-auto w-sm bg-grad text-white mt-1 md:mt-4 hover:scale-102">Place Order</button>
         </fieldset>
       </form>
     </>
