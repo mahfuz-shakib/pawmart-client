@@ -9,7 +9,7 @@ const Categories = () => {
     { name: "Care Products", icon: "💊" },
   ];
   return (
-    <section className="my-20 max-w-6xl mx-auto">
+    <section className="my-24 max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

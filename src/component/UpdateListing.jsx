@@ -35,7 +35,7 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
         modalRef.current.close();
       })
       .catch((err) => {
-        toast.error("Added failed");
+        toast.error("Updated failed");
         console.log(err);
       });
     // e.target.reset();

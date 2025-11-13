@@ -6,23 +6,30 @@ import { FaArrowRight } from "react-icons/fa";
 import { useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { useEffect } from "react";
+import useAuth from "../hooks/useAuth";
+import Loader from "../component/Loader";
 
 const PetsAndSupplies = () => {
   const [products, setProducts] = useState([]);
+  const {loading,setLoading} = useAuth();
   const [selectedCategory, setSeletedCategory] = useState("All Categories");
   // const [selectedSort, setSeletedSort] = useState("All");
   const axiosInstance = useAxios();
 
   useEffect(() => {
+    setLoading(true)
     axiosInstance.get(`/products/?category=${selectedCategory}`).then((data) => {
       setProducts(data.data);
+      setLoading(false)
     });
-  }, [selectedCategory, axiosInstance]);
+  }, [selectedCategory, axiosInstance,setLoading]);
   const handleSearch = (e) => {
     e.preventDefault();
 
     axiosInstance.get(`/search/?search=${e.target.value}`).then((data) => {
+      setLoading(true)
       setProducts(data.data);
+      setLoading(false)
     });
   };
 
@@ -68,7 +75,7 @@ const PetsAndSupplies = () => {
           </select> */}
         </div>
         <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products?.map((product) => (
+          {loading?<Loader/>:products?.map((product) => (
             <ListingCard key={product._id} product={product}></ListingCard>
           ))}
         </div>

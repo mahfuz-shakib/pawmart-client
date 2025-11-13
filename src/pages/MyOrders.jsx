@@ -7,26 +7,28 @@ import Container from "../container/Container";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { toast } from "react-toastify";
+import Loader from "../component/Loader";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
-  const { user } = useAuth();
+  const { user, loading, setLoading } = useAuth();
   const axiosInstance = useAxios();
   console.log(user.email);
   useEffect(() => {
+    setLoading(true);
     axiosInstance
       .get(`/orders/?email=${user?.email}`)
       .then((data) => {
         setMyOrders(data.data);
-
+        setLoading(false);
         // console.log(data.data);
       })
       .catch((err) => console.log(err));
-  }, [user, axiosInstance]);
+  }, [user, axiosInstance, setLoading]);
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-    doc.text('My Orders Report', 14, 10);
+    doc.text("My Orders Report", 14, 10);
     autoTable(doc, {
       startY: 20,
       head: [["SL. No.", "Product/Listing Name", "Buyer Name", "Price", "Quantity", "Address", "Date", "Phone"]],
@@ -42,7 +44,7 @@ const MyOrders = () => {
       ]),
     });
     doc.save("MyOrders.pdf");
-    toast.success("PDF Downloaded Successfully")
+    toast.success("PDF Downloaded Successfully");
   };
 
   const bannerInfo = {
@@ -54,59 +56,65 @@ const MyOrders = () => {
   return (
     <div className="min-h-screen">
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
-      <Container>
-        <div className="text-right mt-8">
-          <button onClick={handleDownloadPDF} className="btn text-red-600 hover:text-red-800">
-            Download Order's PDF
-          </button>
-        </div>
-        <div className="overflow-x-auto py-8 ">
+      {loading ? (
+        <Loader />
+      ) : (
+        <Container>
           {myOrders.length === 0 ? (
             ""
           ) : (
-            <motion.table
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="table"
-            >
-              {/* head */}
-              <thead>
-                <tr className="bg-green-50">
-                  <th>SL. No. </th>
-                  <th>Product/Listing Name</th>
-                  <th>Buyer Name</th>
-                  <th>Price (tk)</th>
-                  <th>Quantity</th>
-                  <th>Address</th>
-                  <th>Date</th>
-                  <th>Phone</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myOrders?.map((order, index) => (
-                  <tr key={order._id} className={`${index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
-                    <td>{index + 1}</td>
-                    <td>{order.productName}</td>
-                    <td>{order.buyerName}</td>
-                    <td>{order.price}</td>
-                    <td>{order.quantity}</td>
-                    <td>{order.address}</td>
-                    <td>{order.date}</td>
-                    <td>{order.phone}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </motion.table>
+            <div>
+              <div className="text-right mt-8">
+                <button onClick={handleDownloadPDF} className="btn text-red-600 hover:text-red-800">
+                  Download Order's PDF
+                </button>
+              </div>
+              <div className="overflow-x-auto py-8 ">
+                <motion.table
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="table"
+                >
+                  {/* head */}
+                  <thead>
+                    <tr className="bg-green-50">
+                      <th>SL. No. </th>
+                      <th>Product/Listing Name</th>
+                      <th>Buyer Name</th>
+                      <th>Price (tk)</th>
+                      <th>Quantity</th>
+                      <th>Address</th>
+                      <th>Date</th>
+                      <th>Phone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {myOrders?.map((order, index) => (
+                      <tr key={order._id} className={`${index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
+                        <td>{index + 1}</td>
+                        <td>{order.productName}</td>
+                        <td>{order.buyerName}</td>
+                        <td>{order.price}</td>
+                        <td>{order.quantity}</td>
+                        <td>{order.address}</td>
+                        <td>{order.date}</td>
+                        <td>{order.phone}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </motion.table>
+              </div>
+              <div className="text-center mb-16">
+                <button onClick={handleDownloadPDF} className="btn text-red-600 hover:text-red-800">
+                  Download Order's PDF
+                </button>
+              </div>
+            </div>
           )}
-        </div>
-        <div className="text-center mb-16">
-          <button onClick={handleDownloadPDF} className="btn text-red-600 hover:text-red-800">
-            Download Order's PDF
-          </button>
-        </div>
-      </Container>
+        </Container>
+      )}
     </div>
   );
 };

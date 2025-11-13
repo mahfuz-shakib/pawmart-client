@@ -5,30 +5,37 @@ import { useEffect } from "react";
 import useAxios from "../hooks/useAxios";
 import { useParams } from "react-router";
 import ListingCard from "../component/ListingCard";
+import useAuth from "../hooks/useAuth";
+import Loader from "../component/Loader";
 const CategoyrFiltered = () => {
-  const { categoryName } = useParams();
   const [products, setProducts] = useState([]);
+  const { categoryName } = useParams();
+  const {loading,setLoading}=useAuth();
   const axiosInstance = useAxios();
   console.log(products);
   useEffect(() => {
+    setLoading(true)
     axiosInstance.get(`/products/?category=${categoryName}`).then((data) => {
       setProducts(data.data);
+      setLoading(false)
     });
-  }, [categoryName, axiosInstance]);
+  }, [categoryName, axiosInstance,setLoading]);
   return (
-    <Container>
+    <div className="min-h-screen my-16">
+      <Container>
       <title>{categoryName}</title>
       <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-center my-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-center">
           Our Featured <span className="text-yello-500 bg-grad bg-clip-text text-transparent">{categoryName}</span>
         </h1>
         <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {products?.map((product) => (
+          {loading?<Loader/>:products?.map((product) => (
             <ListingCard key={product._id} product={product}></ListingCard>
           ))}
         </div>
       </div>
     </Container>
+    </div>
   );
 };
 

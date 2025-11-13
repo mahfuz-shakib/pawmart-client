@@ -5,12 +5,12 @@ import { FaUser } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { AuthContext } from "../auth/AuthContext";
 import Container from "../container/Container";
-import logo from '../../public/assets/paw_logo.png'
+import logo from "../../public/assets/paw_logo.png";
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
-  const [theme, set_Theme] = useState(localStorage.getItem('theme') || "light")
+  const [theme, set_Theme] = useState(localStorage.getItem("theme") || "light");
 
-  const { user, loading, logOut,setTheme } = use(AuthContext);
+  const { user, loading, logOut, setTheme } = use(AuthContext);
   console.log(user);
   const navigate = useNavigate();
   const links = (
@@ -37,18 +37,16 @@ const Navbar = () => {
     </>
   );
 
-
   useEffect(() => {
     setTheme(theme);
-    const html = document.querySelector('html')
-     html.setAttribute("data-theme", theme)
-     localStorage.setItem("theme", theme)
-  }, [theme,setTheme])
-
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme, setTheme]);
 
   const handleTheme = (checked) => {
-    set_Theme(checked ? "dark": "light")
-  }
+    set_Theme(checked ? "dark" : "light");
+  };
 
   const handdleLogOut = () => {
     logOut();
@@ -57,7 +55,7 @@ const Navbar = () => {
     toast("Log out successfully");
   };
   return (
-    <div className={`shadow-sm sticky top-0 z-1000 ${theme==='dark'?"bg-gray-800":"bg-gray-100"}`}>
+    <div className={`shadow-sm sticky top-0 z-1000 ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"}`}>
       {/* sticky top-0 z-1000 */}
       <Container>
         <div className="navbar  flex justify-between items-center">
@@ -98,7 +96,10 @@ const Navbar = () => {
             </div>
             <button className="w-32 sm:w-full relative -ml-2 flex items-center gap-1 hover:scale-102 ">
               <img src={logo} alt="pawmart" className="h-12 hidden sm:block" />
-              <Link to="/" className={` text-[22px] md:text-[26px] absolute ml-9 mt-5 font-semibold bg-grad bg-clip-text text-transparent`}>
+              <Link
+                to="/"
+                className={` text-[22px] md:text-[26px] absolute ml-9 mt-5 font-semibold bg-grad bg-clip-text text-transparent`}
+              >
                 PawMart
               </Link>
             </button>
@@ -110,9 +111,13 @@ const Navbar = () => {
           <div className={`navbar-end ${!user && "space-x-2"}`}>
             <label className="swap swap-rotate mr-3">
               {/* this hidden checkbox controls the state */}
-              <input onChange={(e)=> handleTheme(e.target.checked)}
-           type="checkbox"
-           defaultChecked={localStorage.getItem('theme') === "dark"} className="theme-controller" value="synthwave" />
+              <input
+                onChange={(e) => handleTheme(e.target.checked)}
+                type="checkbox"
+                defaultChecked={localStorage.getItem("theme") === "dark"}
+                className="theme-controller"
+                value="synthwave"
+              />
 
               {/* sun icon */}
               <svg className="swap-off h-8 w-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -147,21 +152,24 @@ const Navbar = () => {
                 <Link to="/login" className="btn btn-outline  ">
                   Login
                 </Link>
-                <Link to="/register" className="btn hidden md:flex bg-grad text-white hover:!from-pink-500 hover:!to-yellow-600">
+                <Link
+                  to="/register"
+                  className="btn hidden md:flex bg-grad text-white hover:!from-pink-500 hover:!to-yellow-600"
+                >
                   Register
                 </Link>
               </>
             )}
             {openDropdown && (
-              <div className="absolute w-48 right-0 bg-indigo-100 flex flex-col text-center p-3 space-y-2 rounded mt-36 z-50">
+              <div className="absolute w-48 right-0 bg-grad flex flex-col text-center p-3 space-y-2 rounded mt-36 z-50">
                 <Link
                   to="/myprofile"
                   onClick={() => setOpenDropdown(false)}
-                  className="hover:bg-indigo-200 rounded py-1"
+                  className="rounded py-1 hover:bg-fuchsia-400"
                 >
                   {user.displayName}
                 </Link>
-                <button onClick={handdleLogOut} className="hover:bg-indigo-200 rounded py-1">
+                <button onClick={handdleLogOut} className="rounded py-1 hover:bg-fuchsia-400">
                   Log Out
                 </button>
               </div>

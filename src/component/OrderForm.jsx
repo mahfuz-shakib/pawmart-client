@@ -24,14 +24,14 @@ const OrderForm = ({ item, modalRef }) => {
     };
     console.log(orderInfo);
     axiosInstance
-      .post('/orders', orderInfo)
+      .post("/orders", orderInfo)
       .then((data) => {
         console.log(data);
         toast.success("Order placed successfully");
         modalRef.current.close();
       })
       .catch((err) => {
-        toast.error("order failed");
+        toast.error("Order failed");
         console.log(err);
       });
     e.target.reset();

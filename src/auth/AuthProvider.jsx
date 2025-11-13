@@ -51,7 +51,8 @@ const AuthProvider = ({ children }) => {
     deleteAccount,
     loading,
     theme,
-    setTheme
+    setTheme,
+    setLoading
   };
   return <AuthContext value={userInfo}>{children}</AuthContext>;
 };
