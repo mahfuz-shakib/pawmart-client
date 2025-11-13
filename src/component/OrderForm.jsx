@@ -103,7 +103,7 @@ const OrderForm = ({ item, modalRef }) => {
               required
             ></textarea>
           </div>
-          <button className="btn mx-auto w-sm bg-purple-700 text-white mt-4 hover:bg-purple-800">Place Order</button>
+          <button className="btn mx-auto w-sm bg-grad text-white mt-4 hover:scale-102">Place Order</button>
         </fieldset>
       </form>
     </>
