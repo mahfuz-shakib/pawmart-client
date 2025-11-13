@@ -10,13 +10,15 @@ import { toast } from "react-toastify";
 import Loader from "../component/Loader";
 import NotAvailable from "../component/NotAvailable";
 import { useLocation } from "react-router";
+import useTheme from "../hooks/useTheme";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
   const { user, loading, setLoading } = useAuth();
   const axiosInstance = useAxios();
-    const location = useLocation();
-  
+  const location = useLocation();
+  const { theme } = useTheme();
+
   useEffect(() => {
     setLoading(true);
     axiosInstance
@@ -51,25 +53,25 @@ const MyOrders = () => {
   };
 
   const bannerInfo = {
-    title: "Pets & Supplies",
+    title: "My Orders",
     description:
-      "Browse through all available pets for adoption and pet care products. Find your perfect companion or everything your pet needs.",
-    icon: "🐾",
+      "View all your adoption requests and product orders. Track your purchases and download order reports.",
+    icon: "📦",
   };
   return (
-    <div className={`min-h-screen ${myOrders.length===0?"space-y-16 mb-12":""}`}>
+    <div className={`min-h-screen ${myOrders.length === 0 ? "space-y-16 mb-12" : ""}`}>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       {loading ? (
         <Loader />
       ) : (
         <Container>
           {myOrders.length === 0 ? (
-            <NotAvailable pathname={location.pathname}/>
+            <NotAvailable pathname={location.pathname} />
           ) : (
             <div>
               <div className="text-right mt-8">
                 <button onClick={handleDownloadPDF} className="btn text-red-600 hover:text-red-800">
-                  Download Order's PDF
+                  Download Report
                 </button>
               </div>
               <div className="overflow-x-auto py-8 ">
@@ -82,7 +84,7 @@ const MyOrders = () => {
                 >
                   {/* head */}
                   <thead>
-                    <tr className="bg-green-50">
+                    <tr className={`${theme === "dark" ? "bg-secondary/10" : "bg-green-50"}`}>
                       <th>SL. No. </th>
                       <th>Product/Listing Name</th>
                       <th>Buyer Name</th>
@@ -95,7 +97,7 @@ const MyOrders = () => {
                   </thead>
                   <tbody>
                     {myOrders?.map((order, index) => (
-                      <tr key={order._id} className={`${index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
+                      <tr key={order._id} className={`${theme==='dark'?"":  index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
                         <td>{index + 1}</td>
                         <td>{order.productName}</td>
                         <td>{order.buyerName}</td>
@@ -109,9 +111,9 @@ const MyOrders = () => {
                   </tbody>
                 </motion.table>
               </div>
-              <div className="text-center mb-16">
+              <div className="text-center md:mb-16 py-10  md:py-0">
                 <button onClick={handleDownloadPDF} className="btn text-red-600 hover:text-red-800">
-                  Download Order's PDF
+                  Download Report
                 </button>
               </div>
             </div>

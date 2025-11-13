@@ -42,14 +42,14 @@ const PetsAndSupplies = () => {
     icon: "🐾",
   };
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen mb-16">
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       <Container>
-        <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-12 my-10 px-3">
+        <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-12 my-12 px-3 md:bg-primary/10 py-2 rounded-lg mx-4">
           <select
             onChange={(e) => setSeletedCategory(e.target.value)}
             defaultValue="All Categories"
-            className="w-64 select select-bordered bg-indigo-50"
+            className="w-full md:w-64 select select-bordered "
           >
             <option className="text-gray-500">All Categories</option>
             <option>Pets</option>
@@ -57,7 +57,7 @@ const PetsAndSupplies = () => {
             <option>Accessories</option>
             <option>Care Products</option>
           </select>
-          <label className="input rounded-full lg:w-md bg-indigo-50">
+          <label className="input rounded-full w-full lg:w-md ">
             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
                 <circle cx="11" cy="11" r="8"></circle>
@@ -66,7 +66,7 @@ const PetsAndSupplies = () => {
             </svg>
             <input onChange={handleSearch} type="search" required placeholder="Search by name" />
           </label>
-          {/* <select defaultValue="Sort by Date" className="w-64 select select-bordered bg-indigo-50">
+          <select defaultValue="Sort by Date" className="w-full md:w-64 select select-bordered">
             <option className="text-gray-500">Sort by Date</option>
             <option>
               New <FaArrowRight /> Old
@@ -74,17 +74,19 @@ const PetsAndSupplies = () => {
             <option>
               Old <FaArrowRight /> New{" "}
             </option>
-          </select> */}
+          </select>
         </div>
-        <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loading ? (
-            <Loader />
-          ) : !products.length ? (
-            <NotAvailable pathname={location.pathname}/>
-          ) : (
-            products?.map((product) => <ListingCard key={product._id} product={product}></ListingCard>)
-          )}
-        </div>
+        {loading ? (
+          <Loader />
+        ) : !products.length ? (
+          <NotAvailable pathname={location.pathname} />
+        ) : (
+          <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products?.map((product) => (
+              <ListingCard key={product._id} product={product}></ListingCard>
+            ))}
+          </div>
+        )}
       </Container>
     </div>
   );

@@ -5,11 +5,13 @@ import useAxios from "../hooks/useAxios";
 import { toast } from "react-toastify";
 import PageBanner from "../component/PageBanner";
 import Loader from "../component/Loader";
+import useTheme from "../hooks/useTheme";
 
 const AddListing = () => {
   const { user, loading, setLoading } = useAuth();
-  const axiosInstance = useAxios();
   const [category, setCategory] = useState("Pets");
+  const axiosInstance = useAxios();
+  const {theme} = useTheme();
   const handleSubmit = (e) => {
     e.preventDefault();
     let price = parseInt(e.target.price.value);
@@ -51,12 +53,12 @@ const AddListing = () => {
         {loading ? (
           <Loader />
         ) : (
-          <div className="max-w-90  md:max-w-[856px]  mx-auto card rounded-lg overflow-hidden my-16">
-            <div className="card-body  !px-2 bg-violet-50">
+          <div className=" max-w-76 md:max-w-[856px]  mx-auto card rounded-lg overflow-hidden my-16">
+            <div className={`card-body px-2 ${theme==='dark'?"bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 ":"bg-indigo-50"} `}>
               <form onSubmit={handleSubmit}>
-                <fieldset className="fieldset space-y-2">
-                  <div className="flex flex-col md:flex-row gap-5">
-                    <div className="w-xs md:w-md">
+                <fieldset className="! fieldset space-y-2">
+                  <div className="flex flex-col md:flex-row justify-between gap-5">
+                    <div className="w-72 md:w-md">
                       <label className="label">Product/Pet Name</label>
                       <input
                         type="text"
@@ -67,7 +69,7 @@ const AddListing = () => {
                         required
                       />
                     </div>
-                    <div className="md:w-xs">
+                    <div className="w-72 md:w-xs">
                       <label className="label">Select Category</label>
                       <br />
                       <select
@@ -84,12 +86,12 @@ const AddListing = () => {
                     </div>
                   </div>
                   <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
-                    <div className="md:w-md">
+                    <div className="w-72 md:w-md">
                       <label className="label">Location</label>
                       <br />
                       <input type="text" name="location" className="input-field" placeholder="e.g. Jashore" required />
                     </div>
-                    <div className="md:w-xs">
+                    <div className="w-72 md:w-xs">
                       <label className="label">Price (tk)</label> <br />
                       <input
                         type="number"
@@ -101,7 +103,7 @@ const AddListing = () => {
                       />
                     </div>
                   </div>
-                  <div className="w-full">
+                  <div className="w-72 md:w-full">
                     <label className="label">Description</label>
                     <br />
                     <textarea
@@ -111,28 +113,28 @@ const AddListing = () => {
                       required
                     ></textarea>
                   </div>
-                  <div>
+                  <div className="w-72 md:w-full">
                     <label className="label">Photo URL</label>
                     <input
                       type="text"
                       name="photo"
                       id="text"
-                      className="input-field"
+                      className="input-field "
                       placeholder="Add product photo url"
                       required
                     />
                   </div>
                   <div className="w-full flex flex-col md:flex-row gap-5 md:gap-10 justify-between">
-                    <div className="md:w-md">
+                    <div className="w-72  md:w-md">
                       <label className="label">Email</label>
                       <input type="email" name="email" className="input-field" defaultValue={user.email} readOnly />
                     </div>
-                    <div className="md:w-xs">
+                    <div className="w-72 md:w-xs">
                       <label className="label">Pick Up Date</label>
                       <input type="date" name="date" className="input-field" placeholder="Pick up a date" required />
                     </div>
                   </div>
-                  <button className="btn mx-auto w-sm bg-purple-700 text-white mt-4 hover:bg-purple-800">
+                  <button className={`btn mx-auto w-72  md:w-sm  text-white mt-4 hover:bg-purple-800 ${theme==='dark'?"bg-linear-to-r from-primary via-secondary/10 to-primary":"bg-grad"}`}>
                     Add to Listings
                   </button>
                 </fieldset>

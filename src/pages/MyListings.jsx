@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import Loader from "../component/Loader";
 import NotAvailable from "../component/NotAvailable";
 import { useLocation } from "react-router";
+import useTheme from "../hooks/useTheme";
 
 const MyListings = () => {
   const [myListings, setMyListings] = useState([]);
@@ -16,6 +17,7 @@ const MyListings = () => {
   const { user, loading, setLoading } = useAuth();
   const location = useLocation();
   const axiosInstance = useAxios();
+  const {theme} = useTheme();
   const modalRef = useRef();
 
   useEffect(() => {
@@ -30,10 +32,10 @@ const MyListings = () => {
   }, [user, axiosInstance, setLoading]);
 
   const bannerInfo = {
-    title: "Pets & Supplies",
+    title: "My Listings",
     description:
-      "Browse through all available pets for adoption and pet care products. Find your perfect companion or everything your pet needs.",
-    icon: "🐾",
+      "Manage all your listings in one place. Edit, update, or remove your pet adoption and product listings.",
+    icon: "📝",
   };
 
   const handleUpdate = (item) => {
@@ -91,7 +93,7 @@ const MyListings = () => {
               >
                 {/* head */}
                 <thead>
-                  <tr className="bg-green-50">
+                  <tr className={`${theme==='dark'?'bg-secondary/10':'bg-green-50'}`}>
                     <th>SL. No. </th>
                     <th>Product Name</th>
                     <th>Price (tk)</th>
@@ -103,7 +105,7 @@ const MyListings = () => {
                 </thead>
                 <tbody>
                   {myListings?.map((list, index) => (
-                    <tr key={list._id} className={`${index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
+                    <tr key={list._id} className={`${theme==='dark'?"":  index % 2 ? "bg-gray-50" : "bg-violet-50"}`}>
                       <td>{index + 1}</td>
                       <td>
                         <div className="flex items-center gap-3">
@@ -146,12 +148,12 @@ const MyListings = () => {
           </div>
           {/* update modal form */}
           <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-            <div className="bg-white p-2 md:p-4 rounded ">
+            <div className={`p-2 md:p-4 rounded ${theme==='dark'?'bg-black border border-gray-500':'bg-white'}`}>
               <h1 className="text-center font-bold mb-3">Update Information</h1>
               <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setMyListings} />
-              <div className="">
+              <div className="w-fit mx-auto ">
                 <form method="dialog">
-                  <button className="btn">Cancel</button>
+                  <button className="btn bg-primary/10">Cancel</button>
                 </form>
               </div>
             </div>
