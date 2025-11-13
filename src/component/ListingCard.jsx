@@ -8,7 +8,7 @@ const ListingCard = ({ product }) => {
 
   const { _id, name, image, category, location, price } = product;
   return (
-    <div className={`card w-96 h-[484px] shadow-sm ${theme==='dark'?"bg-gray-700":""}`}>
+    <div className={`card h-[484px] shadow-sm ${theme==='dark'?"bg-gray-700":""}`}>
       <img src={image} alt={name} className="size-64 mx-auto h-[65%] w-full object-cover" />
       <div className="card-body flex flex-col justify-between">
         <div className="space-y-3">
@@ -18,7 +18,7 @@ const ListingCard = ({ product }) => {
           </div>
           <div className="flex justify-between ">
             <i className="badge text-center">{location}</i>
-            <p className="text-right ">{price}</p>
+            <p className="text-right ">{price} tk</p>
           </div>
         </div>
         <Link to={`/allListings/${_id}`} className="btn btn-outline">

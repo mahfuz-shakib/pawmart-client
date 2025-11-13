@@ -10,16 +10,24 @@ import MyListings from "../pages/MyListings";
 import MyOrders from "../pages/MyOrders";
 import ListingDetails from "../pages/ListingDetails";
 import ErrorPage from "../pages/ErrorPage";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 // , loader: () => fetch("http://localhost:3000/products")
-// , loader: () => fetch("http://localhost:3000/recentProducts") 
+// , loader: () => fetch("http://localhost:3000/recentProducts")
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
     children: [
-      { index: true, Component: Home},
-      { path: "/allListings", Component: PetsAndSupplies},
-      { path: "/allListings/:id", Component: ListingDetails},
+      { index: true, Component: Home },
+      { path: "/allListings", Component: PetsAndSupplies },
+      {
+        path: "/allListings/:id",
+        element: (
+          <PrivateRoute>
+            <ListingDetails />
+          </PrivateRoute>
+        ),
+      },
       { path: "/category-filtered-product/:categoryName", Component: CategoyrFiltered },
       { path: "/addListing", Component: AddListing },
       { path: "/myListings", Component: MyListings },
@@ -29,6 +37,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path:'*', Component:ErrorPage
-  }
+    path: "*",
+    Component: ErrorPage,
+  },
 ]);
