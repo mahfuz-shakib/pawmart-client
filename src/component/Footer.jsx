@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router";
 import { FaGithub, FaFacebook, FaLinkedin } from "react-icons/fa";
 import Container from "../container/Container";
+import useAuth from "../hooks/useAuth";
 const Footer = () => {
+  const { user } = useAuth();
   return (
     <div>
       <div className="bg-[#06091A] text-neutral-content">
@@ -13,11 +15,13 @@ const Footer = () => {
                 <Link to="/">
                   <div className="flex flex-col sm:flex-row justify-center sm:justify-start items-center gap-2 ">
                     {/* <img src={logo} alt='gren nest logo' className="size-12" /> */}
-                    <span className="text-xl font-semibold">GreenNest</span>
+                    <span className="text-xl font-semibold">PawMart</span>
                   </div>
                 </Link>
                 <p className="text-gray-400 text-justify te sm:text-start mt-4 text-sm">
-                  GreenNest is your serene digital haven for indoor greenery — where plant lovers discover, learn, and nurture a vibrant connection with nature. From expert care guides to elegant home plants, we help you create spaces that breathe freshness, balance, and calm.
+                  PawMart is a community-driven platform where pet owners, breeders, and shops can list pets for
+                  adoption or sell pet-related products (food, toys, accessories, etc.). Buyers and adopters can browse,
+                  contact, and order directly.
                 </p>
               </div>
 
@@ -30,18 +34,35 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="px-2 first:pl-0 sm:px-0">
-                    <Link to="/plants" className="hover:underline">
-                      Plants
-                    </Link>
-                  </li>
-                  <li className="px-2 first:pl-0 sm:px-0">
-                    <Link to="/consultation" className="hover:underline">
-                      Consultation
+                    <Link to="/allListings" className="hover:underline">
+                      Pet & Supplies
                     </Link>
                   </li>
                 </ul>
               </div>
 
+              {user && (
+                <div>
+                  <h3 className="text-white text-center sm:text-start font-semibold sm:mt-3 mb-3"> Links</h3>
+                  <ul className="footer-ul">
+                    <li className="px-2 first:pl-0 sm:px-0">
+                      <Link to="/addListings" className="hover:underline">
+                        Add Listings
+                      </Link>
+                    </li>
+                    <li className="px-2 first:pl-0 sm:px-0">
+                      <Link to="/myListings" className="hover:underline">
+                        My Listings
+                      </Link>
+                    </li>
+                    <li className="px-2 first:pl-0 sm:px-0">
+                      <Link to="/myOders" className="hover:underline">
+                        My Orders
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
               <div>
                 <h3 className="text-white text-center sm:text-start font-semibold sm:mt-3 mb-3">Follow</h3>
                 <div className="text-gray-300 text-sm sm:text-base flex flex-wrap justify-center sm:justify-start gap-1 divide-x divide-gray-600 sm:flex-col sm:gap-2 sm:divide-x-0">
@@ -74,7 +95,7 @@ const Footer = () => {
             </div>
 
             <div className="text-center text-gray-400 border-t border-t-gray-600 text-sm mt-10 pt-6">
-              <p>Copyright © {new Date().getFullYear()} GreenNest 🌿 All rights reserved.</p>
+              <p>Copyright © {new Date().getFullYear()} PawMart 🐾 All rights reserved.</p>
             </div>
           </div>
         </Container>

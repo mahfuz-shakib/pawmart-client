@@ -43,6 +43,7 @@ const PetsAndSupplies = () => {
   };
   return (
     <div className="min-h-screen mb-16">
+      <title>Pet & Supplies</title>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       <Container>
         <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-12 my-12 px-3 md:bg-primary/10 py-2 rounded-lg mx-4">

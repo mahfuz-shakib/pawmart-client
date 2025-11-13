@@ -25,6 +25,7 @@ const CategoyrFiltered = () => {
   }, [categoryName, axiosInstance, setLoading]);
   return (
     <div className="min-h-screen">
+      <title>{categoryName}</title>
       <Container>
         <title>{categoryName}</title>
         <Link to='/' className="flex items-center gap-2 mt-5 btn w-fit"><FaArrowLeft/> <span>Go Back</span></Link>

@@ -30,6 +30,7 @@ const ListingDetails = () => {
   };
   return (
     <div className="min-h-screen flex justify-center items-center">
+      <title>{name}</title>
       {loading ? (
         <Loader />
       ) : (

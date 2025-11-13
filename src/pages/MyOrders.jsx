@@ -60,6 +60,7 @@ const MyOrders = () => {
   };
   return (
     <div className={`min-h-screen ${myOrders.length === 0 ? "space-y-16 mb-12" : ""}`}>
+      <title>MyOrders</title>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       {loading ? (
         <Loader />

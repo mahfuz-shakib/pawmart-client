@@ -69,7 +69,7 @@ const AdoptReason = () => {
           >
             <span className="text-5xl">🐾</span>
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-grad bg-clip-text text-transparent">
             Why Adopt from PawMart?
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">

@@ -75,6 +75,7 @@ const MyListings = () => {
 
   return (
     <div className="min-h-screen">
+      <title>MyListings</title>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       {loading ? (
         <Loader />

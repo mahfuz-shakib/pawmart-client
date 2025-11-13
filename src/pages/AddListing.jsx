@@ -48,6 +48,7 @@ const AddListing = () => {
   };
   return (
     <div className="min-h-screen">
+      <title>AddListing</title>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       <Container>
         {loading ? (
