@@ -16,7 +16,9 @@ const Categories = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Browse <span className="text-yello-500 bg-grad bg-clip-text text-transparent">Categories</span></h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Browse <span className="text-yello-500 bg-grad bg-clip-text text-transparent">Categories</span>
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12">
           {categories.map((category, index) => (
             <motion.div

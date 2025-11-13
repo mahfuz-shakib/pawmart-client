@@ -28,7 +28,7 @@ const Home = () => {
     <div className="bg-gray-0">
       <HeroBanner />
       <Container>
-        <section className="py-12 mt-24 md:py-16 bg-gradient-to-br from-yellow-100 via-white to-pink-300 relative rounded-xl overflow-hidden">
+        <section className="py-12 mt-24 md:py-16 bg-linear-to-br from-yellow-100 via-white to-pink-300 relative rounded-xl overflow-hidden">
           {/* Background decorative elements */}
           <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
