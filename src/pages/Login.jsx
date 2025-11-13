@@ -8,7 +8,7 @@ import { motion, easeInOut, easeOut } from "framer-motion";
 import { AuthContext } from "../auth/AuthContext";
 import Container from "../container/Container";
 import useAxios from "../hooks/useAxios";
-
+import useTheme from "../hooks/useTheme";
 const Login = () => {
   const { signInWithGoogle, signInUser } = use(AuthContext);
   const axiosInstance = useAxios();
@@ -16,6 +16,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const {theme}=useTheme();
 
   // login by email/passsword
   const handleSignIn = (e) => {
@@ -66,7 +67,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center  bg-linear-to-br from-green-500 to-purple-400">
+    <div className={`min-h-screen flex justify-center items-center  ${theme==='dark'?"bg-linear-to-br from-yellow-900 via-gray-600 to-fuchsia-900":"bg-linear-to-br from-yellow-700 via-gray-400 to-fuchsia-300"}`}>
       <title>Login</title>
       <Container>
         <div className="md:flex justify-center items-center">
@@ -87,17 +88,10 @@ const Login = () => {
             className="md:w-1/2"
           >
             <div className="text-center ">
-              {/* <motion.div
-                // initial={{ opacity: 0.5 }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 1, repeat: Infinity, repeatType: "loop", ease: easeOut }}
-              >
-                <img src={logo} alt="" className="size-12 mx-auto " />
-              </motion.div> */}
-              <h1 className="text-3xl font-semibold  my-3 text-yellow-500">Welcome Back</h1>
+              <h1 className="text-3xl font-semibold  my-3 text-white">Welcome Back</h1>
               <p className="text-gray-50 mb-4">Sign in to your PawMart account</p>
             </div>
-            <div className="card bg-green-50 w-full max-w-sm mx-auto shrink-0 shadow-2xl">
+            <div className={`card w-full max-w-sm mx-auto shrink-0 shadow-2xl  ${theme==='dark'?"bg-linear-to-br from-yellow-900 via-gray-600 to-fuchsia-900":"bg-linear-to-br from-yellow-100 to-fuchsia-200" }`}>
               <div className="card-body">
                 <form onSubmit={handleSignIn}>
                   <fieldset className="fieldset">
@@ -120,10 +114,10 @@ const Login = () => {
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                       </button>
                     </div>
-                    <Link to="/forgotPassword" className="link link-hover mt-2">
+                    {/* <Link to="/forgotPassword" className="link link-hover mt-2">
                       Forgot password?
-                    </Link>
-                    <button className="btn bg-lime-800 text-white mt-4 hover:bg-teal-800">Sign in</button>
+                    </Link> */}
+                    <button className={`btn text-white mt-4 ${theme==='dark'?"":"bg-grad"} hover:bg-gray-500`}>Sign in</button>
                   </fieldset>
                 </form>
                 {error && <p className="text-red-500">{error}</p>}
@@ -138,7 +132,7 @@ const Login = () => {
                 </button>
                 <p className="text-center">
                   New to our website?{" "}
-                  <Link to="/register" className="text-green-500 underline">
+                  <Link to="/register" className="text-blue-500 underline">
                     Sign Up Here
                   </Link>
                 </p>

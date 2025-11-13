@@ -9,12 +9,15 @@ import { AuthContext } from "../auth/AuthContext";
 import { formValidation } from "../utils/formValidation";
 import Container from "../container/Container";
 import useAxios from "../hooks/useAxios";
+import useTheme from "../hooks/useTheme";
 const Register = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { setUser, createUser, signInWithGoogle, updateUser } = use(AuthContext);
   const axiosInstance = useAxios();
+  const {theme}=useTheme();
+
   const navigate = useNavigate();
 
   //register by email/password
@@ -48,7 +51,7 @@ const Register = () => {
           .catch((err) => {
             console.log(err);
           });
-        toast.success("Registration Successfully");
+        toast.success("Registration Successful");
         e.target.reset();
         navigate("/");
       })
@@ -84,28 +87,21 @@ const Register = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center  bg-linear-to-br from-purple-800 to-green-600">
+    <div className={`min-h-screen flex justify-center items-center  ${theme==='dark'?"bg-linear-to-br from-yellow-900 via-gray-600 to-fuchsia-900":"bg-linear-to-br from-yellow-700 via-gray-400 to-fuchsia-300"}`}>
       <title>Register</title>
 
       <Container>
-        <div className="md:flex justify-center items-center">
+        <div className="md:flex justify-center items-center gap-36 mb-12">
           <motion.div
             initial={{ x: -150, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1, ease: easeInOut }}
             viewport={{ once: true }}
-            className="w-1/2 hidden md:block"
+            className=" my-10"
           >
-            {/* <motion.div
-              // initial={{ opacity: 0.5 }}
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 1, repeat: Infinity, repeatType: "loop", ease: easeOut }}
-            >
-              <img src={logo} alt="" className="size-42 mx-auto " />
-            </motion.div> */}
             <div className="text-center ">
-              <h1 className="text-3xl font-semibold  my-3 text-lime-400">Join PawMart</h1>
-              <p className="text-gray-50 mb-4">Create your account and start your meowwww journey</p>
+              <h1 className="text-3xl md:text-5xl font-semibold  my-3 text-yellow-400">Join PawMart</h1>
+              <p className="text-gray-50 mb-4">Create your account and start your pawmart journey</p>
             </div>
           </motion.div>
           <motion.div
@@ -113,9 +109,9 @@ const Register = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1, ease: easeInOut }}
             viewport={{ once: true }}
-            className="md:w-1/2"
+            className=""
           >
-            <div className="card  bg-green-50 w-full max-w-sm mx-auto shrink-0  shadow-2xl">
+            <div className={`card w-full max-w-sm mx-auto shrink-0 shadow-2xl  ${theme==='dark'?"bg-linear-to-br from-yellow-900 via-gray-600 to-fuchsia-900":"bg-linear-to-br from-yellow-100 to-fuchsia-200" }`}>
               <div className="card-body">
                 <form onSubmit={handleRegister}>
                   <fieldset className="fieldset">
@@ -182,7 +178,7 @@ const Register = () => {
                         {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                       </button>
                     </div>
-                    <button className="btn bg-lime-700 text-white mt-4 hover:bg-green-800">Create Account</button>
+                    <button className={`btn ${theme==='dark'?"":"bg-grad"} text-white mt-4 hover:scale-101`}>Create Account</button>
                   </fieldset>
                 </form>
                 {error && <p className="text-red-500">{error}</p>}
@@ -197,7 +193,7 @@ const Register = () => {
                 </button>
                 <p className="text-center">
                   Already have an account?{" "}
-                  <Link to="/login" className="text-green-500 underline">
+                  <Link to="/login" className="text-blue-500 underline">
                     Login in Here
                   </Link>
                 </p>
