@@ -8,28 +8,30 @@ import useAxios from "../hooks/useAxios";
 import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import Loader from "../component/Loader";
+import { useLocation } from "react-router";
+import NotAvailable from "../component/NotAvailable";
 
 const PetsAndSupplies = () => {
-  const [products, setProducts] = useState([]);
-  const {loading,setLoading} = useAuth();
   const [selectedCategory, setSeletedCategory] = useState("All Categories");
   // const [selectedSort, setSeletedSort] = useState("All");
+  const [products, setProducts] = useState([]);
+  const { loading, setLoading } = useAuth();
   const axiosInstance = useAxios();
-
+  const location = useLocation();
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     axiosInstance.get(`/products/?category=${selectedCategory}`).then((data) => {
       setProducts(data.data);
-      setLoading(false)
+      setLoading(false);
     });
-  }, [selectedCategory, axiosInstance,setLoading]);
+  }, [selectedCategory, axiosInstance, setLoading]);
   const handleSearch = (e) => {
     e.preventDefault();
 
     axiosInstance.get(`/search/?search=${e.target.value}`).then((data) => {
-      setLoading(true)
+      setLoading(true);
       setProducts(data.data);
-      setLoading(false)
+      setLoading(false);
     });
   };
 
@@ -75,9 +77,13 @@ const PetsAndSupplies = () => {
           </select> */}
         </div>
         <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loading?<Loader/>:products?.map((product) => (
-            <ListingCard key={product._id} product={product}></ListingCard>
-          ))}
+          {loading ? (
+            <Loader />
+          ) : !products.length ? (
+            <NotAvailable pathname={location.pathname}/>
+          ) : (
+            products?.map((product) => <ListingCard key={product._id} product={product}></ListingCard>)
+          )}
         </div>
       </Container>
     </div>

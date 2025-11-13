@@ -8,12 +8,15 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { toast } from "react-toastify";
 import Loader from "../component/Loader";
+import NotAvailable from "../component/NotAvailable";
+import { useLocation } from "react-router";
 
 const MyOrders = () => {
   const [myOrders, setMyOrders] = useState([]);
   const { user, loading, setLoading } = useAuth();
   const axiosInstance = useAxios();
-  console.log(user.email);
+    const location = useLocation();
+  
   useEffect(() => {
     setLoading(true);
     axiosInstance
@@ -54,14 +57,14 @@ const MyOrders = () => {
     icon: "🐾",
   };
   return (
-    <div className="min-h-screen">
+    <div className={`min-h-screen ${myOrders.length===0?"space-y-16 mb-12":""}`}>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       {loading ? (
         <Loader />
       ) : (
         <Container>
           {myOrders.length === 0 ? (
-            ""
+            <NotAvailable pathname={location.pathname}/>
           ) : (
             <div>
               <div className="text-right mt-8">

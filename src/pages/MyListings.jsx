@@ -7,13 +7,17 @@ import { easeInOut, easeOut, motion } from "framer-motion";
 import UpdateListing from "../component/UpdateListing";
 import Swal from "sweetalert2";
 import Loader from "../component/Loader";
+import NotAvailable from "../component/NotAvailable";
+import { useLocation } from "react-router";
 
 const MyListings = () => {
   const [myListings, setMyListings] = useState([]);
   const [updateItem, setUpdateItem] = useState({});
-  const modalRef = useRef();
   const { user, loading, setLoading } = useAuth();
+  const location = useLocation();
   const axiosInstance = useAxios();
+  const modalRef = useRef();
+
   useEffect(() => {
     setLoading(true);
     axiosInstance
@@ -36,6 +40,7 @@ const MyListings = () => {
     setUpdateItem(item);
     modalRef.current.showModal();
   };
+
   const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
@@ -65,6 +70,7 @@ const MyListings = () => {
       }
     });
   };
+
   return (
     <div className="min-h-screen">
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
@@ -74,7 +80,7 @@ const MyListings = () => {
         <Container>
           <div className="overflow-x-auto py-16">
             {myListings.length === 0 ? (
-              ""
+              <NotAvailable pathname={location.pathname}/>
             ) : (
               <motion.table
                 initial={{ opacity: 0, y: 20 }}

@@ -9,6 +9,7 @@ import AddListing from "../pages/AddListing";
 import MyListings from "../pages/MyListings";
 import MyOrders from "../pages/MyOrders";
 import ListingDetails from "../pages/ListingDetails";
+import ErrorPage from "../pages/ErrorPage";
 // , loader: () => fetch("http://localhost:3000/products")
 // , loader: () => fetch("http://localhost:3000/recentProducts") 
 export const router = createBrowserRouter([
@@ -27,4 +28,7 @@ export const router = createBrowserRouter([
       { path: "/register", Component: Register },
     ],
   },
+  {
+    path:'*', Component:ErrorPage
+  }
 ]);
