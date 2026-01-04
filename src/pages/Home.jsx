@@ -120,11 +120,11 @@ const Home = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Recent <span className="text-yello-500 bg-grad bg-clip-text text-transparent">Listings</span>
           </h1>
-          <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
             {loading ? (
               <Loader />
             ) : (
-              recentProducts?.map((product) => <ListingCard key={product._id} product={product}></ListingCard>)
+              recentProducts?.map((product,index) => <ListingCard key={product._id} product={product} index={index}></ListingCard>)
             )}
           </div>
           <div className="mb-14 w-fit mx-auto">

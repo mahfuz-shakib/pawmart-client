@@ -22,11 +22,7 @@ export const router = createBrowserRouter([
       { path: "/allListings", Component: PetsAndSupplies },
       {
         path: "/allListings/:id",
-        element: (
-          <PrivateRoute>
-            <ListingDetails />
-          </PrivateRoute>
-        ),
+        Component:ListingDetails
       },
       { path: "/category-filtered-product/:categoryName", Component: CategoyrFiltered },
       { path: "/addListing", Component: AddListing },

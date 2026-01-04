@@ -11,7 +11,7 @@ const Navbar = () => {
   const [theme, set_Theme] = useState(localStorage.getItem("theme") || "light");
 
   const { user, loading, logOut, setTheme } = use(AuthContext);
-  console.log(user);
+  // console.log(user);
   const navigate = useNavigate();
   const links = (
     <>

@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, deleteUser, GoogleAuthProvider, onAuthS
 import { auth } from '../firebase/firebase.config';
 const AuthProvider = ({ children }) => {
   const [theme,setTheme]=useState('');
-  console.log(theme);
+  // console.log(theme);
   const [user, setUser] = useState({});
   const [userId,setUserId]=useState('');
   const [loading, setLoading] = useState(true);

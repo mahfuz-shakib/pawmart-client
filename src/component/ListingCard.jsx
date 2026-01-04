@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
 import useTheme from "../hooks/useTheme";
 
-const ListingCard = ({ product }) => {
-    const {theme} = useTheme();
+const ListingCard = ({ product, index }) => {
+  const { theme } = useTheme();
 
   const { _id, name, image, category, location, price } = product;
   return (
-    <div className={`card h-[484px] shadow-sm ${theme==='dark'?"bg-gray-700":""}`}>
-      <img src={image} alt={name} className="size-64 mx-auto h-[65%] w-full object-cover" />
-      <div className="card-body flex flex-col justify-between">
-        <div className="space-y-3">
+    <motion.div
+      key={_id}
+      initial={{ y: 30, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className={`card md:h-[420px]   border-gray-200 shadow-sm overflow-hidden ${
+        theme === "dark" ? "bg-gray-700" : "border"
+      }`}
+    >
+      <div className="relative card-body p-5 flex flex-col justify-between ">
+        <div className="absolute right-0 top-3">
+          <i className="text-sm right-0 badge badge-sm badge-secondary rounded-r-none">{category}</i>
+        </div>
+        <img src={image} alt={name} className="bg-white rounded" />
+        <div className="space-y-2">
           <div className="flex flex-wrap gap-2">
             <h2 className="card-title">{name}</h2>
-            <i className="text-sm badge badge-secondary ">{category}</i>
           </div>
           <div className="flex justify-between ">
-            <i className="badge text-center">{location}</i>
+            <span className="badge text-center">{location}</span>
             <p className="text-right ">{price} tk</p>
           </div>
         </div>
@@ -25,7 +37,7 @@ const ListingCard = ({ product }) => {
           See Details
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

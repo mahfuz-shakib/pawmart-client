@@ -7,7 +7,7 @@ const PageBanner = ({ bannerInfo }) => {
   const { title, description, icon } = bannerInfo;
   const { theme } = useTheme();
   return (
-    <section className="bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 py-12 md:py-16">
+    <section className="bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 py-6 md:py-8">
       <Container>
         <div className="sm:px-6 lg:px-8">
           <motion.div
@@ -16,10 +16,13 @@ const PageBanner = ({ bannerInfo }) => {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            {icon && <div className="text-5xl md:text-6xl mb-4">{icon}</div>}
-            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text- mb-4 `}>{title}</h1>
+            <div className="flex justify-center items-center flex-c md:flex-row gap-3"> 
+
+            <h1 className={`text-3xl md:text-4xl font-bold text- mb-4 `}>{title}</h1>
+            {icon && <div className="text-2xl md:text-3xl mb-4">{icon}</div>}
+            </div>
             {description && (
-              <p className={`text-base md:text-lg max-w-5xl mx-auto opacity-90 ${theme==='dark'?"text-gray-300":""}`}>{description}</p>
+              <p className={`text-base md:text-lg max-w-5xl mx-auto opacity-80 ${theme==='dark'?"text-gray-300":""}`}>{description}</p>
             )}
           </motion.div>
         </div>

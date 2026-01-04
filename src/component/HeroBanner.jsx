@@ -12,7 +12,7 @@ const HeroBanner = () => {
   }, []);
 
   return (
-    <div className="h-[60vh] md:h-[90vh] relative  overflow-hidden">
+    <div className="h-[60vh] md:h-[70vh] relative  overflow-hidden">
       {/* hero-slide bg */}
       <div className="absolute w-full h-full">
         <img src={heroSlides?.[currentslide].image} alt="" className="w-full h-full object-cover brightness-60" />

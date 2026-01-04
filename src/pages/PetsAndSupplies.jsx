@@ -12,28 +12,29 @@ import { useLocation } from "react-router";
 import NotAvailable from "../component/NotAvailable";
 
 const PetsAndSupplies = () => {
-  const [selectedCategory, setSeletedCategory] = useState("All Categories");
-  // const [selectedSort, setSeletedSort] = useState("All");
+  const [filter, setFilter] = useState({ category: "", price: "", search: "", date: "" });
   const [products, setProducts] = useState([]);
   const { loading, setLoading } = useAuth();
   const axiosInstance = useAxios();
   const location = useLocation();
   useEffect(() => {
     setLoading(true);
-    axiosInstance.get(`/products/?category=${selectedCategory}`).then((data) => {
+    const params= new URLSearchParams(filter).toString();
+    console.log(filter,params);
+    axiosInstance.get(`/products/?${params}`).then((data) => {
       setProducts(data.data);
       setLoading(false);
     });
-  }, [selectedCategory, axiosInstance, setLoading]);
-  const handleSearch = (e) => {
-    e.preventDefault();
+  }, [axiosInstance, setLoading,filter]);
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
 
-    axiosInstance.get(`/search/?search=${e.target.value}`).then((data) => {
-      setLoading(true);
-      setProducts(data.data);
-      setLoading(false);
-    });
-  };
+  //   axiosInstance.get(`/search/?search=${e.target.value}`).then((data) => {
+  //     setLoading(true);
+  //     setProducts(data.data);
+  //     setLoading(false);
+  //   });
+  // };
 
   const bannerInfo = {
     title: "Pets & Supplies",
@@ -46,18 +47,7 @@ const PetsAndSupplies = () => {
       <title>Pet & Supplies</title>
       <PageBanner bannerInfo={bannerInfo}></PageBanner>
       <Container>
-        <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-12 my-12 px-3 md:bg-primary/10 py-2 rounded-lg mx-4">
-          <select
-            onChange={(e) => setSeletedCategory(e.target.value)}
-            defaultValue="All Categories"
-            className="w-full md:w-64 select select-bordered "
-          >
-            <option className="text-gray-500">All Categories</option>
-            <option>Pets</option>
-            <option>Food</option>
-            <option>Accessories</option>
-            <option>Care Products</option>
-          </select>
+        <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-12 my-6 px-3 md:bg-primary/5 py-2 rounded-md">
           <label className="input rounded-full w-full lg:w-md ">
             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
@@ -65,15 +55,46 @@ const PetsAndSupplies = () => {
                 <path d="m21 21-4.3-4.3"></path>
               </g>
             </svg>
-            <input onChange={handleSearch} type="search" required placeholder="Search by name" />
+            <input
+              onChange={(e) => setFilter({ ...filter, search: e.target.value })}
+              type="search"
+              required
+              placeholder="Search by name"
+            />
           </label>
-          <select defaultValue="Sort by Date" className="w-full md:w-64 select select-bordered">
-            <option className="text-gray-500">Sort by Date</option>
-            <option>
-              New <FaArrowRight /> Old
+          <select
+            onChange={(e) => setFilter({ ...filter, category: e.target.value })}
+            className="w-full md:w-64 select select-bordered "
+          >
+            <option value="" className="text-gray-500">All Categories</option>
+            <option value="Pets">Pets</option>
+            <option value="Food">Food</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Care Products">Care Products</option>
+          </select>
+
+          <select
+            onChange={(e) => setFilter({ ...filter, price: e.target.value })}
+            className="w-full md:w-64 select select-bordered"
+          >
+            <option value="" className="text-gray-500">Sort by Price</option>
+            <option value="HighToLow">
+              High &gt; Low
             </option>
-            <option>
-              Old <FaArrowRight /> New{" "}
+            <option value="LowToHigh">
+              Low &gt; High
+            </option>
+          </select>
+          <select
+            onChange={(e) => setFilter({ ...filter, date: e.target.value })}
+            className="w-full md:w-64 select select-bordered"
+          >
+            <option value="" className="text-gray-500">Sort by Date</option>
+            <option value="NewtoOld">
+              New &gt; Old
+            </option>
+            <option value="OldToNew">
+              Old &gt; New{" "}
             </option>
           </select>
         </div>
@@ -82,9 +103,9 @@ const PetsAndSupplies = () => {
         ) : !products.length ? (
           <NotAvailable pathname={location.pathname} />
         ) : (
-          <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products?.map((product) => (
-              <ListingCard key={product._id} product={product}></ListingCard>
+          <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {products?.map((product, index) => (
+              <ListingCard key={product._id} product={product} index={index}></ListingCard>
             ))}
           </div>
         )}

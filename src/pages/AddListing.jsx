@@ -6,12 +6,13 @@ import { toast } from "react-toastify";
 import PageBanner from "../component/PageBanner";
 import Loader from "../component/Loader";
 import useTheme from "../hooks/useTheme";
+import { motion } from "framer-motion";
 
 const AddListing = () => {
   const { user, loading, setLoading } = useAuth();
   const [category, setCategory] = useState("Pets");
   const axiosInstance = useAxios();
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   const handleSubmit = (e) => {
     e.preventDefault();
     let price = parseInt(e.target.price.value);
@@ -32,7 +33,7 @@ const AddListing = () => {
       .then((data) => {
         console.log(data);
         toast.success("Listing added successfully");
-        setLoading(false)
+        setLoading(false);
       })
       .catch((err) => {
         toast.error("Added failed");
@@ -54,8 +55,18 @@ const AddListing = () => {
         {loading ? (
           <Loader />
         ) : (
-          <div className=" max-w-76 md:max-w-[856px]  mx-auto card rounded-lg overflow-hidden my-16">
-            <div className={`card-body px-2 ${theme==='dark'?"bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 ":"bg-indigo-50"} `}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className=" max-w-76 md:max-w-[856px]  mx-auto card rounded-lg overflow-hidden my-16"
+          >
+            <div
+              className={`card-body px-2 ${
+                theme === "dark" ? "bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 " : "bg-indigo-50"
+              } `}
+            >
               <form onSubmit={handleSubmit}>
                 <fieldset className="! fieldset space-y-2">
                   <div className="flex flex-col md:flex-row justify-between gap-5">
@@ -135,13 +146,17 @@ const AddListing = () => {
                       <input type="date" name="date" className="input-field" placeholder="Pick up a date" required />
                     </div>
                   </div>
-                  <button className={`btn mx-auto w-72  md:w-sm  text-white mt-4 hover:bg-purple-800 ${theme==='dark'?"bg-linear-to-r from-primary via-secondary/10 to-primary":"bg-grad"}`}>
+                  <button
+                    className={`btn mx-auto w-72  md:w-sm  text-white mt-4 hover:bg-purple-800 ${
+                      theme === "dark" ? "bg-linear-to-r from-primary via-secondary/10 to-primary" : "bg-grad"
+                    }`}
+                  >
                     Add to Listings
                   </button>
                 </fieldset>
               </form>
             </div>
-          </div>
+          </motion.div>
         )}
       </Container>
     </div>
