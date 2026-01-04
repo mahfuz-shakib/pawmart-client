@@ -1,5 +1,6 @@
 import React, { use, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import { toast } from "react-toastify";
@@ -160,20 +161,44 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-            {openDropdown && (
-              <div className="absolute w-48 right-0 bg-grad flex flex-col text-center p-3 space-y-2 rounded mt-36 z-50">
-                <Link
-                  to="/myprofile"
-                  onClick={() => setOpenDropdown(false)}
-                  className="rounded py-1 hover:bg-fuchsia-400"
-                >
-                  {user.displayName}
-                </Link>
-                <button onClick={handdleLogOut} className="rounded py-1 hover:bg-fuchsia-400">
-                  Log Out
-                </button>
-              </div>
-            )}
+               <AnimatePresence>
+                          {openDropdown && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                              transition={{ duration: 0.2 }}
+                              className="absolute w-48 right-0 top-2 bg-grad shadow-xl flex flex-col text-center p-2 space-y-1 rounded-lg mt-12 z-50"
+                            >
+                              <motion.div whileHover={{ backgroundColor: "#f3f4f6" }}>
+                                <Link
+                                  to="/dashboard/myProfile"
+                                  onClick={() => setOpenDropdown(false)}
+                                  className="block rounded py-2 px-4 transition-colors"
+                                >
+                                  {user.displayName}
+                                </Link>
+                              </motion.div>
+                              <motion.div whileHover={{ backgroundColor: "#f3f4f6" }}>
+                                <Link
+                                  to="/dashboard"
+                                  onClick={() => setOpenDropdown(false)}
+                                  className="block rounded py-2 px-4 transition-colors"
+                                >
+                                  Dashboard
+                                </Link>
+                              </motion.div>
+                              <motion.button
+                                whileHover={{ backgroundColor: "#fee2e2" }}
+                                onClick={handdleLogOut}
+                                className="rounded py-2 px-4 transition-colors text-red-600"
+                              >
+                                Log Out
+                              </motion.button>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+           
           </div>
         </div>
       </Container>

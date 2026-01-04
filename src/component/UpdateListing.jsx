@@ -7,15 +7,18 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
   const [category, setCategory] = useState(updateItem.category);
   const { user } = useAuth();
   const axiosInstance = useAxios();
+  console.log(updateItem);
+  console.log(category);
   const handleUpdateInfo = (e) => {
+    console.log(category);
     e.preventDefault();
     let price = parseInt(e.target.price.value);
     // const category = e.target.category.value;
     if (category === "Pets") price = 0;
     const updatedListing = {
       name: e.target.name.value,
-      category: category,
-      price: price,
+      category,
+      price,
       location: e.target.location.value,
       description: e.target.description.value,
       image: e.target.photo.value,
@@ -54,11 +57,12 @@ const UpdateListing = ({ updateItem, modalRef, setMyListings }) => {
               <label className="label">Select Category</label>
               <br />
               <select
-                defaultValue={updateItem.category}
+                defaultValue={updateItem?.category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="md:w-xs select select-bordered"
                 required
               >
+
                 <option>Pets</option>
                 <option>Food</option>
                 <option>Accessories</option>

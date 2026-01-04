@@ -5,9 +5,6 @@ import Login from "../pages/Login";
 import PetsAndSupplies from "../pages/PetsAndSupplies";
 import Register from "../pages/Register";
 import CategoyrFiltered from "../pages/CategoyrFiltered";
-import AddListing from "../pages/AddListing";
-import MyListings from "../pages/MyListings";
-import MyOrders from "../pages/MyOrders";
 import ListingDetails from "../pages/ListingDetails";
 import ErrorPage from "../pages/ErrorPage";
 import PrivateRoute from "../privateRoute/PrivateRoute";
@@ -25,11 +22,51 @@ export const router = createBrowserRouter([
         Component:ListingDetails
       },
       { path: "/category-filtered-product/:categoryName", Component: CategoyrFiltered },
-      { path: "/addListing", Component: AddListing },
-      { path: "/myListings", Component: MyListings },
-      { path: "/myOrders", Component: MyOrders },
       { path: "/login", Component: Login },
       { path: "/register", Component: Register },
+       {
+        path: "dashboard",
+        element: (
+          <PrivateRoute>
+            <DashboardLayout />
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <LazyWrapper>
+                <DashboardHomepage />
+              </LazyWrapper>
+            ),
+          },
+          {
+            path: "/dashboard/homepage",
+            element: (
+              <LazyWrapper>
+                <DashboardHomepage />
+              </LazyWrapper>
+            ),
+          },
+          {
+            path: "/dashboard/manage-users",
+            element: (
+              <LazyWrapper>
+                <ManageUsers />
+              </LazyWrapper>
+            ),
+          },
+
+          {
+            path: "/dashboard/myProfile",
+            element: (
+              <LazyWrapper>
+                <MyProfile />
+              </LazyWrapper>
+            ),
+          },
+        ],
+      },
     ],
   },
   {

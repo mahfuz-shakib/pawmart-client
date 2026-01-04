@@ -60,11 +60,11 @@ const AddListing = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className=" max-w-76 md:max-w-[856px]  mx-auto card rounded-lg overflow-hidden my-16"
+            className=" max-w-76 md:max-w-[856px]  mx-auto card rounded-lg overflow-hidden "
           >
             <div
-              className={`card-body px-2 ${
-                theme === "dark" ? "bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 " : "bg-indigo-50"
+              className={`card-body px-2 my-12 ${
+                theme === "dark" ? "bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 " : "bg-linear-to-r from-primary/5 via-secondary/5 to-primary/5"
               } `}
             >
               <form onSubmit={handleSubmit}>

@@ -12,7 +12,9 @@ import { useLocation } from "react-router";
 import useTheme from "../hooks/useTheme";
 
 const MyListings = () => {
-  const [myListings, setMyListings] = useState([]);
+    // const [filter, setFilter] = useState({ category: "", price: "", search: "", date: "" });
+  
+  const [response, setResponse] = useState([]);
   const [updateItem, setUpdateItem] = useState({});
   const { user, loading, setLoading } = useAuth();
   const location = useLocation();
@@ -21,16 +23,17 @@ const MyListings = () => {
   const modalRef = useRef();
 
   useEffect(() => {
+    const params = new URLSearchParams({
+       email:user?.email
+     }).toString();
     setLoading(true);
-    axiosInstance
-      .get(`/products/?email=${user.email}`)
-      .then((data) => {
-        setMyListings(data.data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    axiosInstance.get(`/products/?${params}`).then((data) => {
+      setResponse(data.data);
+      setLoading(false);
+    });
   }, [user, axiosInstance, setLoading]);
 
+  const myListings = response?.data || [];
   const bannerInfo = {
     title: "My Listings",
     description:
@@ -39,6 +42,7 @@ const MyListings = () => {
   };
 
   const handleUpdate = (item) => {
+    console.log(item);
     setUpdateItem(item);
     modalRef.current.showModal();
   };
@@ -64,8 +68,8 @@ const MyListings = () => {
               icon: "success",
             });
             axiosInstance
-              .get(`/products/?email=${user.email}`)
-              .then((data) => setMyListings(data.data))
+              .get(`/products/?email=${user?.email}`)
+              .then((data) => setResponse(data.data))
               .catch((err) => console.log(err));
           })
           .catch((err) => console.log(err));
@@ -151,7 +155,7 @@ const MyListings = () => {
           <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
             <div className={`p-2 md:p-4 rounded scale-85 md:scale-100 mx-auto ${theme==='dark'?'bg-black border border-gray-500':'bg-white'}`}>
               <h1 className="text-center font-bold mb-2 md:mb-3">Update Information</h1>
-              <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setMyListings} />
+              <UpdateListing updateItem={updateItem} modalRef={modalRef} setMyListings={setResponse} />
               <div className="w-fit mx-auto ">
                 <form method="dialog">
                   <button className="btn bg-primary/10">Cancel</button>
