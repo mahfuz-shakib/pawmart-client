@@ -37,6 +37,9 @@ const ListingDetails = () => {
       navigate("/login", { state: loacation.pathname, replace: true });
     }
   };
+  const handleBack=()=>{
+    navigate(-1);
+  }
   return (
     <div className="min-h-scree flex justify-center items-center">
       <title>{name}</title>
@@ -45,7 +48,7 @@ const ListingDetails = () => {
       ) : (
         <Container>
           <div className="mt-3">
-            <button className="btn ">
+            <button onClick={handleBack} className="btn ">
               <FaArrowLeft /> Go Back!
             </button>
           </div>
